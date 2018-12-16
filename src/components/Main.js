@@ -1,43 +1,23 @@
 import React, {Component} from 'react';
-import {Image, StyleSheet, Text, TouchableOpacity, View, FlatList} from 'react-native';
+import {Image, StyleSheet, Text, TouchableOpacity, View, FlatList, ScrollView} from 'react-native';
 import axios from 'axios';
 
 export default class App extends Component {
 
  state = {
-      movieInfo: {},
-      results: [],
-      page: 1,
+      results: []
   };
 
   componentDidMount(){
     this.loadMovies();
   }
 
-  loadMovies = async (page = 1) => {
+  loadMovies = async () => {
         
     const api_key  = 'a5b048e479232b12580ede0285f73f64';
-    const response = await axios.get(`https://api.themoviedb.org/3/search/movie?query=terror&api_key=` + api_key + `&language=pt-BR&page=${page}`);
+    const response = await axios.get(`https://api.themoviedb.org/3/search/movie?query=rock&api_key=` + api_key + `&page=1&limit=20&language=pt-BR`);
+    this.setState({results: response.data.results})
     
-    const { results, ...movieInfo } = response.data;
-
-    //load end page more movie
-    this.setState({ 
-      results: [...this.state.results, ...results], 
-      movieInfo,
-      page 
-    }); 
-
-  };
-
-  handleLoadMore = () => {
-    const { page, movieInfo } = this.state;
-
-    if(page === movieInfo.total_pages) return;
-
-    const pageNumber = page + 1;
-
-    this.loadMovies(pageNumber);
   };
 
   static navigationOptions = ({ navigation }) => ({
@@ -51,32 +31,33 @@ export default class App extends Component {
   });
 
   
-  renderItem = ({ item }) => {
-	const items = this.state.results;
-    return (
+  _renderItem = ({ item }) => {
+  const items = this.state.results;
+  firstId = item.id;
+
+  return (
       <View>
-        { items &&
-          items.map((item, idx) => { 
+        { items.map((item, idx) => { 
       //invert a data
       const invertDate = item.release_date.split('-').reverse().join('/')
       const baseUrl = 'https://image.tmdb.org/t/p/original';
 
-      if( item.id == 1992){
+      if( item.id == firstId ){
         return (
           <View key={idx} style={styles.containerDestaque}>
-			<TouchableOpacity 
-				onPress={()=>this.props.navigation.navigate('Details', { item: item })}
-				>
-				<Image style={styles.imgDestaque} source={{ uri: baseUrl + item.poster_path }} />
-					<View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-						<Text style={styles.titDestaque}>{item.title}</Text>
-						<Text style={styles.dataDestaque}>{invertDate}</Text>
-					</View>
-				<Text style={styles.desc}>{item.overview}</Text>
-			</TouchableOpacity>
+            <TouchableOpacity 
+              onPress={()=>this.props.navigation.navigate('Details', { item: item })}
+              >
+              <Image style={styles.imgDestaque} source={{ uri: baseUrl + item.poster_path }} />
+                <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                  <Text style={styles.titDestaque}>{item.title}</Text>
+                  <Text style={styles.dataDestaque}>{invertDate}</Text>
+                </View>
+              <Text style={styles.desc}>{item.overview}</Text>
+            </TouchableOpacity>
           </View>
         )
-      } else if( item.id != 1992 ){ 
+      } else { 
         return (
 				<View key={idx} style={styles.container}>
 
@@ -93,24 +74,22 @@ export default class App extends Component {
 					</TouchableOpacity>
 
 				</View>
-                )
-              }
-
-          })
-        }
-      </View>
-    )
+        )
+      }//close elseif
+    })}
+  </View>
+  )//close return first
   }//close renderItem
 
   render() {
     return (
+      <ScrollView>
         <FlatList
           data={ this.state.results }
-          renderItem={ this.renderItem }
+          renderItem={ this._renderItem }
           keyExtractor={ idx => idx.id }
-          onEndReached={this.handleLoadMore}
-          onEndReachedThreshold={ 0.1 }
         />
+        </ScrollView>
     );
   }
 }
