@@ -2,9 +2,9 @@ import { MODIFICA_EMAIL, MODIFICA_SENHA, MODIFICA_NOME } from './types';
 
 // estado inicial no sistema
 const INITIAL_STATE = {
-    nome: 'HJrDev',
-    email: 'astronomi@gmail.com',
-    senha: '123456'
+    nome: '',
+    email: '',
+    senha: ''
 }
 
 export default (state = INITIAL_STATE, action) => {
