@@ -1,18 +1,15 @@
-import React from 'react';
-import { View, Text, FlatList, Image, StyleSheet, ScrollView, TouchableOpacity } from 'react-native';
+import React, { Component } from 'react';
+import { View, Text, Image, StyleSheet, ScrollView, TouchableOpacity, Dimensions } from 'react-native';
 
-
-class Details extends React.Component {
+class Details extends Component {
   constructor(props){
     super(props)
     
   }
 
-
   componentDidMount(){
-    console.log(this.props.navigation)
+    this.props.navigation
   }
-
 
   static navigationOptions = ({ navigation }) => ({
     headerStyle: { backgroundColor: '#000' },
@@ -27,22 +24,27 @@ class Details extends React.Component {
   });
 
   render() {
-    const params = this.props.navigation.state.params;   
-    //invert a data
-    const invertDate = params.item.release_date.split('-').reverse().join('/')
-    const baseUrl = 'https://image.tmdb.org/t/p/original';
+	const params = this.props.navigation.state.params.item;  
+	//console.log(params) 
+	
+  //invert date
+  const invertDate = params.release_date.split('-').reverse().join('/')
+  const base_url = 'https://image.tmdb.org/t/p/original'
+
+	
     return (
       
-        <View key={params.item.id} style={styles.containerDestaque}>
-        <ScrollView>
-              <Image style={styles.imgDestaque} source={{ uri: baseUrl + params.item.poster_path }} />
-              <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
-                <Text style={styles.titDestaque}>{params.item.title}</Text>
-                <Text style={styles.dataDestaque}>{invertDate}</Text>
-              </View>
-              <Text style={styles.desc}>{params.item.overview}</Text>
-          </ScrollView>
-        </View>
+		<View key={params.id} style={styles.containerDetach}>
+			<ScrollView>
+        <View style={styles.spaceTop}></View>
+				<Image style={styles.imgDetach} source={{ uri: base_url + params.poster_path }} />
+				<View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+					<Text style={styles.titleDetach}>{params.title}</Text>
+					<Text style={styles.dataDetach}>{invertDate}</Text>
+				</View>
+				<Text style={styles.descriptionDetach}>{params.overview}</Text>
+			</ScrollView>
+		</View>
         
     ); 
     
@@ -51,13 +53,50 @@ class Details extends React.Component {
 }//clase class
 
 const styles = StyleSheet.create({
-  containerDestaque: { flex: 1, justifyContent: 'center', alignItems: 'stretch', backgroundColor: '#111' },
-  imgDestaque: { flex: 2, height: 300, width: 500, alignItems: 'stretch', justifyContent: 'center', padding: 5 },
-  dataDestaque: { color: '#ccc', fontSize: 12, alignItems: 'flex-end', padding: 10 },
-  titDestaque: { color: '#fff', fontSize: 18, fontWeight: '600', paddingLeft: 20 },
-  desc: { color: '#fff', fontSize: 16, padding: 20 },
-  details: { flex: 1, alignItems: 'center', justifyContent: 'center' },
-  logo: { width: 100, height: 50, justifyContent: 'flex-start' }
+  containerDetach: { 
+    flex: 1, 
+    justifyContent: 'center', 
+    alignItems: 'stretch', 
+    backgroundColor: '#111' 
+  },
+  imgDetach: { 
+    flex: 2, height: 300, 
+    width: Dimensions.get('window').width, 
+    height: (Dimensions.get('window').height) / 1.5,
+    alignItems: 'stretch', 
+    justifyContent: 'center', 
+    padding: 5 
+  },
+  dataDetach: { 
+    color: '#ccc', 
+  fontSize: 12, 
+  alignItems: 'flex-end', 
+  padding: 20 
+},
+  titleDetach: { 
+    color: '#fff', 
+    fontSize: 18, 
+    alignItems: 'flex-start', 
+    fontWeight: '600', 
+    padding: 20 
+  },
+  descriptionDetach: { 
+    color: '#fff', 
+    fontSize: 16, 
+    padding: 20, 
+    marginHorizontal: 5 
+  },
+  details: { 
+    flex: 1, 
+    alignItems: 'center', 
+    justifyContent: 'center' 
+  },
+  logo: { 
+    width: 100, 
+    height: 50, 
+    justifyContent: 'flex-start' 
+  },
+  spaceTop: { height: 10 }
 });
 
 export default Details;

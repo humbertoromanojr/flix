@@ -20,8 +20,7 @@ static navigationOptions = ({ navigation }) => ({
 state = {
 	data: [],
 	page: 1,
-	loading: false,
-
+	loading: false
 }
 
 componentDidMount() {
@@ -45,18 +44,21 @@ loadMovies = async () => {
 
 }
 
+getDetach = ({ item }) => {
+	const movie = this.state.data.item;
+	console.log(item)
+}
+
 _renderItem = ({ item }) => {
 
 	const movie = this.state.data.item;
-	
-	console.log(item)
 	
 	const invertDate = item.release_date.split('-').reverse().join('/')
 	const base_url = 'https://image.tmdb.org/t/p/original';
 	const thumb = 'https://image.tmdb.org/t/p/w500';
 
-	if( item == item.id ){
-		 
+	if( item.id == '457854' ){
+		
 		return (
 			<View key={item.id} style={styles.containerDetach}>
 				<TouchableOpacity 
