@@ -37,3 +37,18 @@ Project license MIT. [LICENSE](LICENSE) more details.
 <h1 align="center">
   <img src="https://i.ibb.co/LJ6V6st/netflix-Clone.gif" alt="netflix-Clone" border="0">
 </h1>
+
+<br>
+<hr />
+<br>
+OBS: Low quality layout to show animation.
+
+<br>
+
+<h1 align="center">
+  <img src="https://i.ibb.co/MZ7wW6T/clone-Netflix.png" alt="clone-Netflix" border="0">
+</h1>
+
+<br>
+
+You see how the real quality of the app is much better ;-).
