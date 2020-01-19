@@ -35,5 +35,5 @@ Project license MIT. [LICENSE](LICENSE) more details.
 ## Demonstration
 
 <h1 align="center">
-  <img src="https://i.ibb.co/j301NDw/clone-Netflix.gif" alt="clone-Netflix" border="0">
+  <img src="https://i.ibb.co/LJ6V6st/netflix-Clone.gif" alt="netflix-Clone" border="0">
 </h1>
