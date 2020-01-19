@@ -34,7 +34,7 @@ Project license MIT. [LICENSE](LICENSE) more details.
 
 ## Demonstration
 
-<p justify="center">
+<p align="center" style="color: red;">
   OBS: Low quality layout to show animation.
 </p>
 
@@ -44,7 +44,7 @@ Project license MIT. [LICENSE](LICENSE) more details.
  
 <br>
 
-<p align="center">
+<p align="center" style="color: blue">
   You see how the real quality of the app is much better ;-).
 </p>
 
